@@ -1,0 +1,17 @@
+{
+    "name": "epwt/codefactory",
+    "authors": [
+        {
+            "name": "Aurimas Niekis",
+            "email": "aurimas.niekis@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "^4.7"
+    },
+    "autoload": {
+        "psr-0": {
+            "EPWT": "src"
+        }
+    }
+}

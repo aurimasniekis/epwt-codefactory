@@ -1,0 +1,11 @@
+<?php
+
+$foo = 'bar';
+
+function demoFunction($argument = null) {
+    echo $argument;
+}
+
+demoFunction();
+
+?>
