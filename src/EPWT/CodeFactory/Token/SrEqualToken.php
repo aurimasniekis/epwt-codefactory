@@ -3,18 +3,18 @@
 namespace EPWT\CodeFactory\Token;
 
 /**
- * Class AbstractToken
+ * Class SrEqualToken
  * @package EPWT\CodeFactory\Token
  * @author Aurimas Niekis <aurimas.niekis@gmail.com>
  */
-class AbstractToken extends Token
+class SrEqualToken extends Token
 {
     /**
      * @param mixed|null $value
      * @param int|null $lineNumber
      */
-    public function __construct($value = 'abstract', $lineNumber = null)
+    public function __construct($value = '>>=', $lineNumber = null)
     {
-        parent::__construct(T_ABSTRACT, $value, $lineNumber);
+        parent::__construct(T_SR_EQUAL, $value, $lineNumber);
     }
 }

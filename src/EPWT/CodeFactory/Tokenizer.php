@@ -9,23 +9,6 @@ namespace EPWT\CodeFactory;
  */
 class Tokenizer
 {
-    const T_NEW_LINE = 10001;
-    const T_TAB = 10002;
-    const T_LEFT_SQUARE_BRACKET = 10003;
-    const T_RIGHT_SQUARE_BRACKET = 10004;
-    const T_EQUALS_SIGN = 10005;
-    const T_SEMICOLON = 10006;
-    const T_LEFT_PARENTHESIS = 10007;
-    const T_RIGHT_PARENTHESIS = 10008;
-    const T_RIGHT_CURLY_BRACKET = 10009;
-    const T_LEFT_CURLY_BRACKET = 10010;
-    const T_COMMA = 10011;
-    const T_HYPHEN = 10012;
-    const T_EXCLAMATION_MARK = 10013;
-    const T_DOT = 10014;
-    const T_LESS_THAN = 10015;
-    const T_GREATER_THAN = 10016;
-
     /**
      * @var int
      */
@@ -51,6 +34,10 @@ class Tokenizer
                     continue;
                 }
 
+                if (T_EXIT === $token[0] && false !== strpos($token[1], 'die')) {
+                    $token[0] = CustomTokens::T_DIE;
+                }
+
                 $tokens[] = $token;
             } else {
                 $tokens[] = $this->parseCharacterToToken($token);
@@ -60,38 +47,55 @@ class Tokenizer
         return $tokens;
     }
 
+    /**
+     * @param array $tokens
+     *
+     * @return array
+     */
+    public function mapTokens(array $tokens)
+    {
+        $oopTokens = [];
+        $tokenMap = TokensMap::$map;
+
+        foreach ($tokens as $token) {
+            $oopTokens[] = new $tokenMap[$token[0]]($token[1], $token[2]);
+        }
+
+        return $oopTokens;
+    }
+
     protected function parseCharacterToToken($character)
     {
         if (1 === strlen($character)) {
             switch($character) {
                 case '[':
-                    return [self::T_LEFT_SQUARE_BRACKET, '[', $this->currentLine];
+                    return [CustomTokens::T_LEFT_SQUARE_BRACKET, '[', $this->currentLine];
                 case ']':
-                    return [self::T_RIGHT_SQUARE_BRACKET, ']', $this->currentLine];
+                    return [CustomTokens::T_RIGHT_SQUARE_BRACKET, ']', $this->currentLine];
                 case '(':
-                    return [self::T_LEFT_PARENTHESIS, '(', $this->currentLine];
+                    return [CustomTokens::T_LEFT_PARENTHESIS, '(', $this->currentLine];
                 case ')':
-                    return [self::T_RIGHT_PARENTHESIS, ')', $this->currentLine];
+                    return [CustomTokens::T_RIGHT_PARENTHESIS, ')', $this->currentLine];
                 case '{':
-                    return [self::T_LEFT_CURLY_BRACKET, '{', $this->currentLine];
+                    return [CustomTokens::T_LEFT_CURLY_BRACKET, '{', $this->currentLine];
                 case '}':
-                    return [self::T_RIGHT_CURLY_BRACKET, '}', $this->currentLine];
+                    return [CustomTokens::T_RIGHT_CURLY_BRACKET, '}', $this->currentLine];
                 case '<':
-                    return [self::T_LESS_THAN, '<', $this->currentLine];
+                    return [CustomTokens::T_LESS_THAN, '<', $this->currentLine];
                 case '>':
-                    return [self::T_GREATER_THAN, '>', $this->currentLine];
+                    return [CustomTokens::T_GREATER_THAN, '>', $this->currentLine];
                 case '=':
-                    return [self::T_EQUALS_SIGN, '=', $this->currentLine];
+                    return [CustomTokens::T_EQUALS_SIGN, '=', $this->currentLine];
                 case ';':
-                    return [self::T_SEMICOLON, ';', $this->currentLine];
+                    return [CustomTokens::T_SEMICOLON, ';', $this->currentLine];
                 case ',':
-                    return [self::T_COMMA, ',', $this->currentLine];
+                    return [CustomTokens::T_COMMA, ',', $this->currentLine];
                 case '-':
-                    return [self::T_HYPHEN, '-', $this->currentLine];
+                    return [CustomTokens::T_HYPHEN, '-', $this->currentLine];
                 case '!':
-                    return [self::T_EXCLAMATION_MARK, '!', $this->currentLine];
+                    return [CustomTokens::T_EXCLAMATION_MARK, '!', $this->currentLine];
                 case '.':
-                    return [self::T_DOT, '.', $this->currentLine];
+                    return [CustomTokens::T_DOT, '.', $this->currentLine];
                 default:
                     throw new \Exception('Found undocumented character "' . $character . '"');
             }
@@ -108,9 +112,9 @@ class Tokenizer
 
         foreach ($splitData as $data) {
             if ($data === "\r\n" || $data === "\n") {
-                $tokens[] = [self::T_NEW_LINE, $data, $this->currentLine++];
+                $tokens[] = [CustomTokens::T_NEW_LINE, $data, $this->currentLine++];
             } else if ($data === "\t") {
-                $tokens[] = [self::T_TAB, $data, $this->currentLine];
+                $tokens[] = [CustomTokens::T_TAB, $data, $this->currentLine];
             } else {
                 $tokens[] = [$token[0], $data, $this->currentLine];
             }

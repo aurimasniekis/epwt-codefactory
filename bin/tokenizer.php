@@ -9,12 +9,15 @@ $file = '/Users/gcds/Projects/PHP/Tokenizer.new/src/EPWT/CodeFactory/Tests/Fixtu
 
 $tokens = $tokenizer->tokenGetAll(file_get_contents($file));
 
-foreach ($tokens as &$token) {
-    if (is_array($token)) {
-        if (token_name($token[0]) !== 'UNKNOWN') {
-            $token[0] = token_name($token[0]);
-        }
-    }
-}
+var_dump($tokenizer->mapTokens($tokens));
 
-echo json_encode($tokens, JSON_PRETTY_PRINT);
+//foreach ($tokens as &$token) {
+//    if (is_array($token)) {
+//        if (token_name($token[0]) !== 'UNKNOWN') {
+//            $token[0] = token_name($token[0]);
+//        }
+//    }
+//}
+
+//echo json_encode($tokens, JSON_PRETTY_PRINT);
+

@@ -3,18 +3,18 @@
 namespace EPWT\CodeFactory\Token;
 
 /**
- * Class AbstractToken
+ * Class ProtectedToken
  * @package EPWT\CodeFactory\Token
  * @author Aurimas Niekis <aurimas.niekis@gmail.com>
  */
-class AbstractToken extends Token
+class ProtectedToken extends Token
 {
     /**
      * @param mixed|null $value
      * @param int|null $lineNumber
      */
-    public function __construct($value = 'abstract', $lineNumber = null)
+    public function __construct($value = 'protected', $lineNumber = null)
     {
-        parent::__construct(T_ABSTRACT, $value, $lineNumber);
+        parent::__construct(T_PROTECTED, $value, $lineNumber);
     }
 }

@@ -3,18 +3,18 @@
 namespace EPWT\CodeFactory\Token;
 
 /**
- * Class AbstractToken
+ * Class WhileToken
  * @package EPWT\CodeFactory\Token
  * @author Aurimas Niekis <aurimas.niekis@gmail.com>
  */
-class AbstractToken extends Token
+class WhileToken extends Token
 {
     /**
      * @param mixed|null $value
      * @param int|null $lineNumber
      */
-    public function __construct($value = 'abstract', $lineNumber = null)
+    public function __construct($value = 'while', $lineNumber = null)
     {
-        parent::__construct(T_ABSTRACT, $value, $lineNumber);
+        parent::__construct(T_WHILE, $value, $lineNumber);
     }
 }
