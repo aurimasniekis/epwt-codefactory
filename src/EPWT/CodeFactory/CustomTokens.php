@@ -26,4 +26,42 @@ class CustomTokens
     const T_LESS_THAN = 10015;
     const T_GREATER_THAN = 10016;
     const T_DIE = 10017;
+
+    public static $tokenNames = [
+        10001 => 'T_NEW_LINE',
+        10002 => 'T_TAB',
+        10003 => 'T_LEFT_SQUARE_BRACKET',
+        10004 => 'T_RIGHT_SQUARE_BRACKET',
+        10005 => 'T_EQUALS_SIGN',
+        10006 => 'T_SEMICOLON',
+        10007 => 'T_LEFT_PARENTHESIS',
+        10008 => 'T_RIGHT_PARENTHESIS',
+        10009 => 'T_RIGHT_CURLY_BRACKET',
+        10010 => 'T_LEFT_CURLY_BRACKET',
+        10011 => 'T_COMMA',
+        10012 => 'T_HYPHEN',
+        10013 => 'T_EXCLAMATION_MARK',
+        10014 => 'T_DOT',
+        10015 => 'T_LESS_THAN',
+        10016 => 'T_GREATER_THAN',
+        10017 => 'T_DIE',
+    ];
+
+    /**
+     * @param int $tokenId
+     *
+     * @return string
+     */
+    public static function tokenName($tokenId)
+    {
+        $tokenName = token_name($tokenId);
+
+        if ('UNKNOWN' === $tokenName) {
+            if (array_key_exists($tokenId, self::$tokenNames)) {
+                return self::$tokenNames[$tokenId];
+            }
+        }
+
+        return $tokenName;
+    }
 }

@@ -9,7 +9,31 @@ $file = '/Users/gcds/Projects/PHP/Tokenizer.new/src/EPWT/CodeFactory/Tests/Fixtu
 
 $tokens = $tokenizer->tokenGetAll(file_get_contents($file));
 
-var_dump($tokenizer->mapTokens($tokens));
+$tokens = $tokenizer->mapTokens($tokens);
+
+echo file_get_contents($file);
+
+foreach ($tokens as &$token) {
+    if ($token instanceof \EPWT\CodeFactory\Token\VariableToken) {
+        $token = new \EPWT\CodeFactory\Token\ConstantEncapsedStringToken('\'Hello world\'', $token->getLineNumber());
+    }
+
+    if ($token instanceof \EPWT\CodeFactory\Token\StringToken) {
+        $token->setContent('Haha');
+    }
+}
+
+
+echo '==========================' . PHP_EOL;
+
+$generator = new \EPWT\CodeFactory\Generator();
+echo $generator->generateFromTokens($tokens);
+
+//foreach ($tokens as $token) {
+//    echo \EPWT\CodeFactory\CustomTokens::tokenName($token->getId()) . PHP_EOL;
+//    var_dump($token->getContent());
+//}
+
 
 //foreach ($tokens as &$token) {
 //    if (is_array($token)) {

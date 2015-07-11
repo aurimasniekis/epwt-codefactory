@@ -50,7 +50,7 @@ class Tokenizer
     /**
      * @param array $tokens
      *
-     * @return array
+     * @return Token\[]
      */
     public function mapTokens(array $tokens)
     {
