@@ -12,10 +12,11 @@ use EPWT\CodeFactory\CustomTokens;
 class CommaToken extends Token
 {
     /**
+     * @param string $value
      * @param int|null $lineNumber
      */
-    public function __construct($lineNumber = null)
+    public function __construct($value = ',', $lineNumber = null)
     {
-        parent::__construct(CustomTokens::T_COMMA, ',', $lineNumber);
+        parent::__construct(CustomTokens::T_COMMA, $value, $lineNumber);
     }
 }
