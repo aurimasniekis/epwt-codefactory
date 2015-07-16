@@ -144,8 +144,6 @@ class TokensMap
         T_WHITESPACE => 'EPWT\\CodeFactory\\Token\\WhitespaceToken',
         T_XOR_EQUAL => 'EPWT\\CodeFactory\\Token\\XorEqualToken',
         T_YIELD => 'EPWT\\CodeFactory\\Token\\YieldToken',
-        CustomTokens::T_NEW_LINE => 'EPWT\\CodeFactory\\Token\\NewLineToken',
-        CustomTokens::T_TAB => 'EPWT\\CodeFactory\\Token\\TabToken',
         CustomTokens::T_LEFT_SQUARE_BRACKET => 'EPWT\\CodeFactory\\Token\\LeftSquareBracketToken',
         CustomTokens::T_RIGHT_SQUARE_BRACKET => 'EPWT\\CodeFactory\\Token\\RightSquareBracketToken',
         CustomTokens::T_EQUALS_SIGN => 'EPWT\\CodeFactory\\Token\\EqualsSignToken',

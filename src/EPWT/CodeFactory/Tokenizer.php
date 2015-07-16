@@ -29,11 +29,6 @@ class Tokenizer
             if (is_array($token)) {
                 $this->currentLine = $token[2];
 
-                if (T_WHITESPACE === $token[0]) {
-                    $tokens = array_merge($tokens, $this->parseWhitespaceToken($token));
-                    continue;
-                }
-
                 if (T_EXIT === $token[0] && false !== strpos($token[1], 'die')) {
                     $token[0] = CustomTokens::T_DIE;
                 }
@@ -102,24 +97,5 @@ class Tokenizer
         } else {
             throw new \Exception('Found undocumented character "' . $character . '"');
         }
-    }
-
-    protected function parseWhitespaceToken($token)
-    {
-        $tokens = [];
-
-        $splitData = preg_split('/(\r\n|\n|\t)/', $token[1], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
-
-        foreach ($splitData as $data) {
-            if ($data === "\r\n" || $data === "\n") {
-                $tokens[] = [CustomTokens::T_NEW_LINE, $data, $this->currentLine++];
-            } else if ($data === "\t") {
-                $tokens[] = [CustomTokens::T_TAB, $data, $this->currentLine];
-            } else {
-                $tokens[] = [$token[0], $data, $this->currentLine];
-            }
-        }
-
-        return $tokens;
     }
 }
