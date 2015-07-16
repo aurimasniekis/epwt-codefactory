@@ -8,8 +8,8 @@ $file = '/Users/gcds/Projects/PHP/Tokenizer.new/src/EPWT/CodeFactory/Tests/Fixtu
 $file = '/Users/gcds/Projects/PHP/Tokenizer.new/src/EPWT/CodeFactory/Tests/Fixtures/CodeSamples/1-sample_tokens_tabs.sample';
 
 
-$tokens = $tokenizer->tokenGetAll(file_get_contents($file));
-//$tokens = $tokenizer->tokenGetAll('<?php use A\B\C as D; >');
+//$tokens = $tokenizer->tokenGetAll(file_get_contents($file));
+$tokens = $tokenizer->tokenGetAll('Foobar <?php use A\B\C as D; >');
 
 $tokens = $tokenizer->mapTokens($tokens);
 

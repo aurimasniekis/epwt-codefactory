@@ -19,6 +19,18 @@ class Tokenizer
         $this->currentLine = 0;
     }
 
+    /**
+     * @param string $code
+     *
+     * @return Token\[]
+     */
+    public function tokenize($code)
+    {
+        $tokens = $this->tokenGetAll($code);
+
+        return $this->mapTokens($tokens);
+    }
+
     public function tokenGetAll($code)
     {
         $this->currentLine = 0;
