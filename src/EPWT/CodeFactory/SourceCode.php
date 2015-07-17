@@ -15,7 +15,7 @@ class SourceCode
     protected $file;
 
     /**
-     * @var Token\[]
+     * @var SourceCodeTokens
      */
     protected $tokens;
 
@@ -24,8 +24,15 @@ class SourceCode
      */
     protected $scope;
 
-    public function __construct($tokens = [])
+    /**
+     * @param SourceCodeTokens|Token\[] $tokens
+     */
+    public function __construct($tokens = null)
     {
+        if (is_array($tokens)) {
+            $tokens = new SourceCodeTokens($tokens);
+        }
+
         $this->tokens = $tokens;
     }
 
@@ -59,6 +66,26 @@ class SourceCode
     public function setFile($file)
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * @return SourceCodeTokens
+     */
+    public function getTokens()
+    {
+        return $this->tokens;
+    }
+
+    /**
+     * @param SourceCodeTokens $tokens
+     *
+     * @return $this
+     */
+    public function setTokens($tokens)
+    {
+        $this->tokens = $tokens;
 
         return $this;
     }
